@@ -2,6 +2,15 @@ Changelog
 =========
 
 
+1.0.2 (2020-08-17)
+------------------
+
+- Python 3.3+ compatibility, using six_
+- Dedicated `interface` module
+
+[tobiasherp]
+
+
 1.0.1 (2018-11-23)
 ------------------
 
@@ -12,12 +21,8 @@ Changelog
 1.0 (2018-09-17)
 ----------------
 
-- No further changes.
-  [tobiasherp]
-
-
-1.0.dev1 (unreleased)
----------------------
-
 - Initial release.
   [tobiasherp]
+
+
+.. _six: https://pypi.org/project/six

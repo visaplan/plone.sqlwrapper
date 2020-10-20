@@ -5,6 +5,10 @@ utils-Modul des Adapters unitracc->sqlwrapper
 Autor: Tobias Herp
 """
 
+from __future__ import absolute_import
+from six import string_types as six_string_types
+from six.moves import map, zip
+
 __all__ = [# Funktionen:
            'check_name',
            'replace_names',
@@ -53,7 +57,7 @@ def check_name(sqlname, for_select=False):
         ...
     ValueError: Empty segment in ''
     """
-    if not isinstance(sqlname, basestring):
+    if not isinstance(sqlname, six_string_types):
         raise TypeError('%r is not a string' % (sqlname,))
 
     invalid = set(sqlname).difference(ALLNAMECHARS)
@@ -146,7 +150,7 @@ def generate_dicts(sqlres, names):
     elif not is_sequence(names):
         names = [names]
     raw = sqlres[1]
-    for row in raw:
+    for row in raw:  # no list dict(list(zip())) necessary, right?
         yield dict(zip(names, row))
 
 
@@ -349,7 +353,7 @@ def _groupable_spectup(item):
     >>> _groupable_spectup(['feld', None, 'alias'])
     ('feld', 'feld alias', 'alias')
     """
-    if isinstance(item, basestring):
+    if isinstance(item, six_string_types):
         spec = [item]
     else:
         spec = list(item)

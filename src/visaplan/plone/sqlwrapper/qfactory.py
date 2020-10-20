@@ -10,6 +10,9 @@ der Namen und überlassen die Ersetzung dem Datenbank-Adapter.
 Autor: Tobias Herp
 """
 
+from __future__ import absolute_import
+from __future__ import print_function
+
 __all__ = [# Funktionen:
            # 'insert',
            ]
@@ -37,6 +40,7 @@ def beautify_sql(s):
     for item in liz:
         pass
 
+
 def pretty_resulting_sql_statement(func):
     """
     Dekorator für Debugging: Gib jedes generierte SQL-Statement aus
@@ -44,17 +48,20 @@ def pretty_resulting_sql_statement(func):
     """
     def f(*args, **kwargs):
         res = func(*args, **kwargs)
-        print beautify_sql(res)
+        print(beautify_sql(res))
         return res
     return f
 
+
 def unchanged(func):
     return func
+
 
 if DEBUG:
     decorate = pretty_resulting_sql_statement
 else:
     decorate = unchanged
+
 
 @decorate
 def select(table, fields=None, where=None, query_data=None):
@@ -65,6 +72,7 @@ def select(table, fields=None, where=None, query_data=None):
     >>> select('tabelle', query_data=query_data)
     'SELECT * FROM tabelle WHERE eins = %(eins)s AND zwei = %(zwei)s;'
     """
+
 
 @decorate
 def insert(table, dict_of_values,
@@ -79,6 +87,7 @@ def insert(table, dict_of_values,
     'INSERT INTO tabelle (eins, zwei) VALUES (%(eins)s, %(zwei)s) RETURNING eins;'
     """
 
+
 @decorate
 def update(table, dict_of_values, where=None, query_data={}):
     """
@@ -90,6 +99,7 @@ def update(table, dict_of_values, where=None, query_data={}):
     'UPDATE tabelle SET eins=%(eins)s, zwei=%(zwei)s WHERE id = %(id)s;'
     """
 
+
 @decorate
 def delete(table, where=None, query_data=None):
     """
@@ -99,6 +109,7 @@ def delete(table, where=None, query_data=None):
     >>> delete('tabelle', query_data=query_data)
     'DELETE FROM tabelle WHERE id = %(id)s;'
     """
+
 
 if __name__ == '__main__':
     import doctest

@@ -1,6 +1,9 @@
 graft src/visaplan
 graft docs
 include *.rst
-include VERSION
-include VERSION_SUFFIX
-global-exclude *.pyc
+include VERSION*
+global-exclude *.pyc *~ .*.swp .*.swo
+global-exclude *-local.rst
+global-exclude *.vim *.sed *.sh
+exclude src/visaplan/plone/sqlwrapper/qfactory.py
+exclude CHANGES-in-*.rst

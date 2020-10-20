@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*- vim: et ts=8 sw=4 sts=4 si tw=79 cc=+1
 """Installer for the visaplan.plone.sqlwrapper package."""
+from __future__ import absolute_import
+from __future__ import print_function
 
 from setuptools import find_packages
 from setuptools import setup
@@ -23,7 +25,7 @@ def valid_suffix(suffix):
     suffix = suffix.strip()
     if not suffix:
         return suffix
-    allowed = set('.dev0123456789')
+    allowed = set('.dev0123456789rc')
     disallowed = set(suffix).difference(allowed)
     if disallowed:
         disallowed = ''.join(sorted(disallowed))
@@ -81,6 +83,52 @@ for subp in exclude_subpackages:
 packages = find_packages(
             'src',
             exclude=exclude_packages)
+
+def github_urls(package, **kwargs):
+    pop = kwargs.pop
+    pkg_list = package.split('.')
+    res = {}
+    readthedocs = pop('readthedocs', False)
+    if readthedocs:
+        if readthedocs in (1, True):
+            readthedocs = ''.join(pkg_list)
+        res['Documentation'] = \
+            'https://%(readthedocs)s.readthedocs.io' % locals()
+        assert 'docs' not in kwargs
+    else:
+        docs = pop('docs', None)
+        if docs is None:
+            res['Documentation'] = 'https://pypi.org/project/%(package)s' \
+                                   % locals()
+        elif docs:
+            res['Documentation'] = docs
+    if not pop('github', 1):
+        assert not kwargs
+        return res
+    pop_user = pop('pop_user', False)
+    if pop_user:
+        assert 'pick_user' not in kwargs
+        assert 'user' not in kwargs
+        user = pkg_list.pop(0)
+        package = '.'.join(pkg_list)
+    else:
+        pick_user = pop('pick_user', 'user' not in kwargs)
+        if pick_user:
+            user = pkg_list[0]
+            if 'user' in kwargs:
+                assert pop('user') == user
+    if pop('travis', False):  # reqires github to be trueish
+        res.update({  # CHECKME: is there a de-facto standard key for this?
+            'Tests': 'https://travis-ci.org/%(user)s/%(package)s' % locals()
+            })
+    base = 'https://github.com/%(user)s/%(package)s' % locals()
+    res.update({
+        'Source': base,
+        'Tracker': base + '/issues',
+        })
+    return res
+project_urls = github_urls(package_name,
+                           github=0)  # or pick_user=1, or github=0
 # ------------------------------------------- ] ... for setup_kwargs ]
 
 setup_kwargs = dict(
@@ -88,13 +136,21 @@ setup_kwargs = dict(
     version=VERSION,
     description="SQL statements generator for Zope SQL adapters",
     long_description=long_description,
+    long_description_content_type='text/x-rst',
     # Get more from https://pypi.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         "Environment :: Web Environment",
         "Framework :: Plone",
         "Framework :: Plone :: 4.3",
+        'Framework :: Zope2',
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
         "Intended Audience :: Developers",
         "Natural Language :: German",
         "Operating System :: OS Independent",
@@ -103,7 +159,7 @@ setup_kwargs = dict(
     # keywords='Python Plone',
     author='Tobias Herp',
     author_email='tobias.herp@visaplan.com',
-    url='https://pypi.org/project/visaplan.plone.sqlwrapper',
+    project_urls=project_urls,
     license='GPL version 2',
     packages=packages,
     namespace_packages=[
@@ -115,6 +171,7 @@ setup_kwargs = dict(
     zip_safe=False,
     install_requires=[
         'setuptools',
+        'six',  # compatibility with Python 2.7 and 3.3+
         # -*- Extra requirements: -*-
         'visaplan.plone.base',  # adapter base class
         'visaplan.plone.tools',  # logging

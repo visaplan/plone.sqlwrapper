@@ -5,7 +5,7 @@
     <adapter
         for="*"
         name="sqlwrapper"
-        provides=".adapter.ISQLWrapper"
+        provides=".interfaces.ISQLWrapper"
         factory=".adapter.Adapter"/>
 
     <include package="visaplan.plone.tools" />
