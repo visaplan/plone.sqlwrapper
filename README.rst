@@ -53,8 +53,8 @@ This add-on can be seen in action at the following sites:
 Contribute
 ----------
 
-- Issue Tracker: https://github.com/visaplan/visaplan.plone.sqlwrapper/issues
-- Source Code: https://github.com/visaplan/visaplan.plone.sqlwrapper
+- Issue Tracker: https://github.com/visaplan/plone.sqlwrapper/issues
+- Source Code: https://github.com/visaplan/plone.sqlwrapper
 
 
 Support
@@ -78,7 +78,7 @@ See also
 - visaplan.zope.reldb_ contains a copy which follows the SQLAlchemy_
   placeholders convention (``:name``).
 
-.. _`issue tracker`: https://github.com/visaplan/PACKAGE/issues
+.. _`issue tracker`: https://github.com/visaplan/plone.sqlwrapper/issues
 .. _SQLAlchemy: https://www.sqlalchemy.org
 .. _visaplan.tools: https://pypi.org/project/visaplan.tools
 .. _visaplan.zope.reldb: https://pypi.org/project/visaplan.zope.reldb

@@ -128,7 +128,7 @@ def github_urls(package, **kwargs):
         })
     return res
 project_urls = github_urls(package_name,
-                           github=0)  # or pick_user=1, or github=0
+                           github=1, pop_user=1)
 # ------------------------------------------- ] ... for setup_kwargs ]
 
 setup_kwargs = dict(
