@@ -28,11 +28,13 @@ Features
 --------
 
 - Methods:
+
   - ``insert``
   - ``update``
   - ``delete``
   - ``select``
   - ``query``
+
 - Implements the Context manager protocol (PEP 343)
 
 
