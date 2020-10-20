@@ -2,6 +2,15 @@ Changelog
 =========
 
 
+1.0.3 (unreleased)
+------------------
+
+- Use isort_
+- Fixed Github links
+
+[tobiasherp]
+
+
 1.0.2 (2020-08-17)
 ------------------
 
@@ -25,4 +34,5 @@ Changelog
   [tobiasherp]
 
 
+.. _isort: https://pypi.org/project/isort
 .. _six: https://pypi.org/project/six

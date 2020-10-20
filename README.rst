@@ -2,6 +2,10 @@
    If you want to learn more about writing documentation, please check out: http://docs.plone.org/about/documentation_styleguide.html
    This text does not appear on pypi or github. It is a comment.
 
+.. image::
+   https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336
+       :target: https://pycqa.github.io/isort/
+
 =========================
 visaplan.plone.sqlwrapper
 =========================
