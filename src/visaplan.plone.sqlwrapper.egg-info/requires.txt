@@ -1,0 +1,4 @@
+setuptools
+six
+visaplan.plone.base
+visaplan.plone.tools

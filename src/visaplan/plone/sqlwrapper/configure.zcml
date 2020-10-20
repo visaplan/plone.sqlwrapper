@@ -1,0 +1,13 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:plone="http://namespaces.plone.org/plone">
+
+    <adapter
+        for="*"
+        name="sqlwrapper"
+        provides=".adapter.ISQLWrapper"
+        factory=".adapter.Adapter"/>
+
+    <include package="visaplan.plone.tools" />
+
+</configure>
