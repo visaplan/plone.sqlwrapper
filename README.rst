@@ -23,6 +23,9 @@ There might be some work still necessary to make this product useful for a
 broader audience; it is currently in use in our monolithic product resp. it's
 successors only.
 
+We consider it more likely the *successor packages* visaplan.tools_ and
+visaplan.zope.reldb_ (see below) to be useful for current use.
+
 
 Features
 --------
@@ -35,7 +38,7 @@ Features
   - ``select``
   - ``query``
 
-- Implements the Context manager protocol (PEP 343)
+- Implements the `Context manager protocol`_
 
 
 Examples
@@ -45,28 +48,6 @@ This add-on can be seen in action at the following sites:
 
 - https://www.unitracc.de
 - https://www.unitracc.com
-
-
-Documentation
--------------
-
-Full documentation for end users can be found in the "docs" folder.
-
-
-Installation
-------------
-
-Install visaplan.plone.sqlwrapper by adding it to your buildout::
-
-    [buildout]
-
-    ...
-
-    eggs =
-        visaplan.plone.sqlwrapper
-
-
-and then running ``bin/buildout``
 
 
 Contribute
@@ -88,6 +69,19 @@ License
 
 The project is licensed under the GPLv2.
 
+See also
+--------
+
+- visaplan.tools_ contains an ``sql`` module to generate SQL statements like
+  the ones mentioned above, detached from any Zope context
+
+- visaplan.zope.reldb_ contains a copy which follows the SQLAlchemy_
+  placeholders convention (``:name``).
+
 .. _`issue tracker`: https://github.com/visaplan/PACKAGE/issues
+.. _SQLAlchemy: https://www.sqlalchemy.org
+.. _visaplan.tools: https://pypi.org/project/visaplan.tools
+.. _visaplan.zope.reldb: https://pypi.org/project/visaplan.zope.reldb
+.. _`Context manager protocol`: https://www.python.org/dev/peps/pep-0343/
 
 .. vim: tw=79 cc=+1 sw=4 sts=4 si et

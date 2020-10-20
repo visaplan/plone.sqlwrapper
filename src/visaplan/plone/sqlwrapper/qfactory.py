@@ -9,9 +9,8 @@ der Namen und überlassen die Ersetzung dem Datenbank-Adapter.
 
 Autor: Tobias Herp
 """
-
-from __future__ import absolute_import
-from __future__ import print_function
+# Python compatibility:
+from __future__ import absolute_import, print_function
 
 __all__ = [# Funktionen:
            # 'insert',
@@ -112,6 +111,7 @@ def delete(table, where=None, query_data=None):
 
 
 if __name__ == '__main__':
+    # Standard library:
     import doctest
     doctest.testmod()
 

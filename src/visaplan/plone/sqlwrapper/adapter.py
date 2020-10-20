@@ -2,22 +2,36 @@
 """
 Adapter sqlwrapper: Schnittstelle zur SQL-Datenbank
 """
-
+# Python compatibility:
 from __future__ import absolute_import
+
 from six.moves import range
 
-from visaplan.plone.base import Base
-from exceptions import NotImplementedError
+# Zope:
 from App.config import getConfiguration
+from Products.CMFCore.utils import getToolByName
 
+# 3rd party:
+from exceptions import NotImplementedError
+
+# visaplan:
+from visaplan.plone.base import Base
+
+# Logging / Debugging:
 from visaplan.plone.tools.log import getLogSupport
+
 logger, debug_active, DEBUG = getLogSupport(fn=__file__,
                                             defaultFromDevMode=False)
+# Local imports:
 from .interfaces import ISQLWrapper
-from .utils import (check_name, generate_dicts, replace_names,
-        make_where_mask,
-        make_transaction_cmd, make_returning_clause,
-        )
+from .utils import (
+    check_name,
+    generate_dicts,
+    make_returning_clause,
+    make_transaction_cmd,
+    make_where_mask,
+    replace_names,
+    )
 
 
 class Adapter(Base):
@@ -31,7 +45,7 @@ class Adapter(Base):
         """
         conf = getConfiguration()
         env = conf.environment
-        portal = context.getAdapter('portal')()
+        portal = getToolByName(context, 'portal_url').getPortalObject()
         try:
             db_name = env['DATABASE']
             self.db = getattr(portal, db_name)._v_database_connection

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*- äöü vim: ts=8 sts=4 sw=4 si et tw=79
+# Python compatibility:
 from __future__ import absolute_import
 
+# Zope:
 from zope.interface import Interface
 
 

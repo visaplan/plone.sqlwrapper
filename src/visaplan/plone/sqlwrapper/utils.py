@@ -4,20 +4,38 @@ utils-Modul des Adapters unitracc->sqlwrapper
 
 Autor: Tobias Herp
 """
-
+# Python compatibility:
 from __future__ import absolute_import
+
 from six import string_types as six_string_types
 from six.moves import map, zip
 
 __all__ = [# Funktionen:
+           # SQL names:
            'check_name',
+           "check_alias",
            'replace_names',
+           # SQL generation:
+           "make_transaction_cmd",
+           "make_where_mask",
+           "make_grouping_wrapper",
+               # specific helper:
+               "_groupable_spectup",
+           "make_returning_clause",
+           # "make_join",  # not yet implemented
+           # Formatting:
+           "normalize_sql_snippet",
+           # helpers:
+           "extract_dict",
            'generate_dicts',
+           "is_sequence",
            # Klassen:
            'SmartDict',
            ]
 
-from string import letters, uppercase, whitespace, digits
+# Standard library:
+from string import digits, letters, uppercase, whitespace
+
 NAMECHARS = frozenset(letters+'._')
 ALLNAMECHARS = frozenset(letters+digits+'._')
 SNIPPETCHARS = frozenset(uppercase + whitespace)
@@ -40,10 +58,10 @@ def check_name(sqlname, for_select=False):
 
     Am Anfang eines Segments sind sie aber verboten:
 
-    >>> check_name('witrabau.2_witrabau_partners_view')  # doctest: +IGNORE_EXCEPTION_DETAIL
+    >>> check_name('witrabau.2_witrabau_partners_view')
     Traceback (most recent call last):
-        ...
-    ValueError: Error in in 'witrabau.p2_witrabau_partners_view': ...
+    ...
+    ValueError: Error in 'witrabau.2_witrabau_partners_view': '2' must not start a segment
 
     Doppelte Punkte:
     >>> check_name('tan..tan')
@@ -150,7 +168,7 @@ def generate_dicts(sqlres, names):
     elif not is_sequence(names):
         names = [names]
     raw = sqlres[1]
-    for row in raw:  # no list dict(list(zip())) necessary, right?
+    for row in raw:  # no dict(list(zip())) necessary, right?
         yield dict(zip(names, row))
 
 
@@ -581,6 +599,7 @@ def make_join(*specs):
 
 
 if __name__ == '__main__':
+    # Standard library:
     import doctest
     doctest.testmod()
 
